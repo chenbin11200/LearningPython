@@ -63,7 +63,20 @@ def convertMeter(meter):
 
 # Write to file and then click to pass the GPS
 def write_to_GPS(point):
-    pass
+    lastLat = point["lat"]
+    lastLng = point["lng"]
+    gpx = ET.Element("gpx", version="1.1", creator="Xcode")
+    wpt = ET.SubElement(gpx, "wpt", lat=lastLat, lon=lastLng)
+    ET.SubElement(wpt, "name").text = "PokemonLocation"
+    ET.ElementTree(gpx).write("PokemonLocation.gpx")
+    print "Location Updated!", "latitude:", lastLat, "longitude:", lastLng
+
+
+def click2ChangeGPS(timespan = 1):
+    os.system("./autoClicker -x 750 -y 400")
+    os.system("./autoClicker -x 750 -y 450")
+    os.system("./autoClicker -x 750 -y 450")
+    time.sleep(timespan)
 
 
 def rad(angle):
