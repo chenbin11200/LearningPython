@@ -4,6 +4,10 @@ from matplotlib import pyplot as plt
 import math
 from decimal import Decimal
 
+import os
+import xml.etree.cElementTree as ET
+import time
+
 Speed = 5  # m/s
 SearchRange = 20  # meter
 
@@ -63,8 +67,8 @@ def convertMeter(meter):
 
 # Write to file and then click to pass the GPS
 def write_to_GPS(point):
-    lastLat = point["lat"]
-    lastLng = point["lng"]
+    lastLat = str(point["lat"])
+    lastLng = str(point["lng"])
     gpx = ET.Element("gpx", version="1.1", creator="Xcode")
     wpt = ET.SubElement(gpx, "wpt", lat=lastLat, lon=lastLng)
     ET.SubElement(wpt, "name").text = "PokemonLocation"
@@ -85,14 +89,15 @@ def rad(angle):
 
 # http://www.cnblogs.com/zrhai/p/3817492.html
 # http://www.ucbbs.org/cgi-bin/bbs/ccb/topic_view.cgi?forum=1&article_id=0101080324231941&class=1
-# 计算在某个纬度的最大偏移经纬度，单位是米，计算的是一个矩形区域
+# Calculate max latitude & longitude differance according to a certain latitude and distance(in meter)
+# The result is a square area
 def getMaxDeviation(lat, distance):
     EARTH_RADIUS = 6377.830  # in km
     radLat = rad(lat)
     latRatio = 180 / (math.pi * EARTH_RADIUS)
     lngRatio = latRatio / math.cos(radLat)
-    latDeviation = distance / 1000 * latRatio  # in meter
-    lngDeviation = distance / 1000 * lngRatio  # in meter
+    latDeviation = distance / 1000.0 * latRatio  # in meter
+    lngDeviation = distance / 1000.0 * lngRatio # in meter
     return {"lat": latDeviation, "lng": lngDeviation}
 
 
