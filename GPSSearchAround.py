@@ -73,7 +73,7 @@ def write_to_GPS(point):
     wpt = ET.SubElement(gpx, "wpt", lat=lastLat, lon=lastLng)
     ET.SubElement(wpt, "name").text = "PokemonLocation"
     ET.ElementTree(gpx).write("PokemonLocation.gpx")
-    print "Location Updated!", "latitude:", lastLat, "longitude:", lastLng
+    print ("Location Updated!", "latitude:", lastLat, "longitude:", lastLng)
 
 
 def click2ChangeGPS(timespan = 1):
@@ -109,6 +109,14 @@ def getDistanceInLat(lat, distance):
 
 
 def test():
-    startSearching({"lat":53.5529891641475, "lng": 9.99261278100636})
+    startSearching({"lat": 53.5529891641475, "lng": 9.99261278100636})
 
-test()
+
+def read_from_gps():
+    tree = ET.parse("PokemonLocation.gpx")
+    lat = tree.findall("./wpt")[0].attrib['lat']
+    lng = tree.findall("./wpt")[0].attrib['lon']
+    return{"lat": lat, "lng": lng}
+
+
+read_from_gps()
