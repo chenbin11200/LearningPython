@@ -8,6 +8,9 @@ import os
 import xml.etree.cElementTree as ET
 import time
 
+import Helper
+import GPSLocationPointCreatetor
+
 Speed = 5  # m/s
 SearchRange = 20  # meter
 
@@ -43,7 +46,8 @@ def startSearching(searchCenter):
         central_rad += speed_T / radius_T
         x2 = radius_T * math.cos(central_rad) + centerX1
         y2 = radius_T * math.sin(central_rad) + centerY1
-        write_to_GPS({"lat": x2, "lng": y2})
+        GPSLocationPointCreatetor.createGPSFile4IOS(x2, y2)
+
         startPoint["lat"] = x2
         startPoint["lng"] = y2
         print(x2, y2)
@@ -59,28 +63,6 @@ def startSearching(searchCenter):
 
 def getEachStepPlusRadius_T (distance_T, currentRadius_T, searchRangeRadius_T):
     return distance_T/(2*math.pi*currentRadius_T) * searchRangeRadius_T
-
-
-def convertMeter(meter):
-    return Decimal(meter / 10000)
-
-
-# Write to file and then click to pass the GPS
-def write_to_GPS(point):
-    lastLat = str(point["lat"])
-    lastLng = str(point["lng"])
-    gpx = ET.Element("gpx", version="1.1", creator="Xcode")
-    wpt = ET.SubElement(gpx, "wpt", lat=lastLat, lon=lastLng)
-    ET.SubElement(wpt, "name").text = "PokemonLocation"
-    ET.ElementTree(gpx).write("PokemonLocation.gpx")
-    print ("Location Updated!", "latitude:", lastLat, "longitude:", lastLng)
-
-
-def click2ChangeGPS(timespan = 1):
-    os.system("./autoClicker -x 750 -y 400")
-    os.system("./autoClicker -x 750 -y 450")
-    os.system("./autoClicker -x 750 -y 450")
-    time.sleep(timespan)
 
 
 def rad(angle):
@@ -118,5 +100,4 @@ def read_from_gps():
     lng = tree.findall("./wpt")[0].attrib['lon']
     return{"lat": lat, "lng": lng}
 
-
-read_from_gps()
+test()
