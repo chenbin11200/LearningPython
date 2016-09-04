@@ -93,11 +93,4 @@ def getDistanceInLat(lat, distance):
 def test():
     startSearching({"lat": 53.5529891641475, "lng": 9.99261278100636})
 
-
-def read_from_gps():
-    tree = ET.parse("PokemonLocation.gpx")
-    lat = tree.findall("./wpt")[0].attrib['lat']
-    lng = tree.findall("./wpt")[0].attrib['lon']
-    return{"lat": lat, "lng": lng}
-
 test()

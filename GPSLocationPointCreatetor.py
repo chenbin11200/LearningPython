@@ -1,6 +1,8 @@
 import xml.etree.cElementTree as ET
 import math
-
+import urllib2
+import json
+from decimal import *
 
 def createGPSFile4IOS(lat, lng):
     gpx = ET.Element("gpx", version="1.1", creator="Xcode")
@@ -10,7 +12,7 @@ def createGPSFile4IOS(lat, lng):
 
 
 def rad(angle):
-    return angle * math.pi / 180
+    return float(angle) * math.pi / 180
 
 
 # http://www.cnblogs.com/zrhai/p/3817492.html
@@ -35,10 +37,29 @@ def getDistanceInLat(lat, distance):
 
 
 def getPathLineRad(startLocationPoint, destinationLocationPoint):
-    x1 = startLocationPoint['lat']
-    y1 = startLocationPoint['lng']
-    x2 = destinationLocationPoint['lat']
-    y2 = destinationLocationPoint['lng']
+    x1 = Decimal(startLocationPoint['lat'])
+    y1 = Decimal(startLocationPoint['lng'])
+    x2 = Decimal(destinationLocationPoint['lat'])
+    y2 = Decimal(destinationLocationPoint['lng'])
     return math.atan2(y2-y1, x2-x1)
 
+
+def getLocationFromController():
+    try:
+        response = urllib2.urlopen("http://192.168.178.25/", timeout=3)
+        geo = json.load(response)
+        if geo != None:
+            lastLat = geo["lat"]
+            lastLng = geo["lng"]
+        return {"lat":float(lastLat), "lng":float(lastLng)}
+
+    except urllib2.URLError as e:
+        print e.reason
+
+
+def read_from_gps():
+    tree = ET.parse("PokemonLocation.gpx")
+    lat = tree.findall("./wpt")[0].attrib['lat']
+    lng = tree.findall("./wpt")[0].attrib['lon']
+    return{"lat": float(lat), "lng": float(lng)}
 

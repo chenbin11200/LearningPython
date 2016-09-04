@@ -71,4 +71,15 @@ def start():
 		else:
 			break
 
-start()
+
+def start(ori, tar):
+	global origin, destinaion
+	origin = ori
+	destinaion = tar
+	while 1:
+		generateXML()
+		if gobackAfterArrive:
+			origin, destinaion = destinaion, origin
+			continue
+		else:
+			break
