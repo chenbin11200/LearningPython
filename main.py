@@ -2,34 +2,45 @@ from Character import *
 from WalkPattern import *
 import GPSLocationPointCreatetor
 
-user_input = raw_input("Please set current location, by "
-                       "1. from GPS file "
-                       "2. from controller")
-currentLocation = None
 
-if user_input == "1":
-    currentLocation = GPSLocationPointCreatetor.read_from_gps()
-elif user_input == "2":
-    currentLocation = GPSLocationPointCreatetor.getLocationFromController()
+def simpleUI():
+    user_input = raw_input("Please set current location, by "
+                           "1. from GPS file "
+                           "2. from controller")
+    currentLocation = None
+
+    if user_input == "1":
+        currentLocation = GPSLocationPointCreatetor.read_from_gps()
+    elif user_input == "2":
+        currentLocation = GPSLocationPointCreatetor.getLocationFromController()
 
 
-trainer = Character(currentLocation)
+    trainer = Character(currentLocation)
 
-print("current location "+str(currentLocation["lat"])+"," +str(currentLocation["lng"]))
+    print("current location "+str(currentLocation["lat"])+"," +str(currentLocation["lng"]))
 
-print "Dear master, what you want me to do?"
+    print "Dear master, what you want me to do?"
 
-print "1. Go to target location"
+    print "1. Go to target location"
 
-user_input = raw_input()
+    user_input = raw_input()
 
-if trainer.targetLocationPoint == None:
-    print "unknown target location, please set target location"
-    setTargetLocation = raw_input()
-    trainer.setTargetLocation()
-    print("target location " + str(trainer.targetLocationPoint["lat"]) +"," +str(trainer.targetLocationPoint["lng"]))
+    if trainer.targetLocationPoint == None:
+        print "unknown target location, please set target location"
+        setTargetLocation = raw_input()
+        trainer.setTargetLocation()
+        print("target location " + str(trainer.targetLocationPoint["lat"]) +"," +str(trainer.targetLocationPoint["lng"]))
+        trainer.walkPattern = WalkPattern(trainer, True)
+        trainer.walkPattern.start()
+
+
+def easyTest():
+    currentLocation = {"lat": Decimal(32.711517), "lng": Decimal(-117.164686)}
+    targetLocation = {"lat": Decimal(32.719835), "lng": Decimal(-117.161195)}
+    trainer = Character(currentLocation)
+    trainer.targetLocationPoint = targetLocation
     trainer.walkPattern = WalkPattern(trainer, True)
     trainer.walkPattern.start()
 
 
-
+easyTest()

@@ -1,4 +1,4 @@
-import decimal
+from decimal import *
 import math
 import Helper
 import GPSLocationPointCreatetor
@@ -35,12 +35,12 @@ class Character:
         differenceInLat = GPSLocationPointCreatetor.getMaxDeviation(self.currentLocationPoint['lat'],
                                                                      Character.WalkSpeed)['lat']
 
-        realChangeInLat = (differenceInLat/distanceAtLat)*Character.WalkSpeed
+        realChangeInLat = (differenceInLat/distanceAtLat)*differenceInLat
         realChangeInLng = realChangeInLat*math.tan(pathLineRad)
 
         while self.inRangeOf(self.currentLocationPoint, startPoint, targetPoint) :
-            self.currentLocationPoint['lat'] += realChangeInLat
-            self.currentLocationPoint['lng'] += realChangeInLng
+            self.currentLocationPoint['lat'] += Decimal(realChangeInLat)
+            self.currentLocationPoint['lng'] += Decimal(realChangeInLng)
             #  Helper.updateGPSLocation(self.currentLocationPoint['lat'], self.currentLocationPoint['lng'])
             GPSLocationPointCreatetor.createGPSFile4IOS(float(self.currentLocationPoint['lat']), float(self.currentLocationPoint['lng']))
             self.recordInMemory()

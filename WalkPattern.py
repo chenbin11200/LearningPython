@@ -10,7 +10,6 @@ class WalkPattern:
         self.trainer = trainer
         self.gobackAfterArrive = gobackAfterArrive
         self.googleApiKey = self.__readGoogleKey()
-        self.a = 'a'
 
 
     def start(self):
