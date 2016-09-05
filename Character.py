@@ -39,8 +39,8 @@ class Character:
         realChangeInLng = realChangeInLat*math.tan(pathLineRad)
 
         while self.inRangeOf(self.currentLocationPoint, startPoint, targetPoint) :
-            self.currentLocationPoint['lat'] += Decimal(realChangeInLat)
-            self.currentLocationPoint['lng'] += Decimal(realChangeInLng)
+            self.currentLocationPoint['lat'] += realChangeInLat
+            self.currentLocationPoint['lng'] += realChangeInLng
             #  Helper.updateGPSLocation(self.currentLocationPoint['lat'], self.currentLocationPoint['lng'])
             GPSLocationPointCreatetor.createGPSFile4IOS(float(self.currentLocationPoint['lat']), float(self.currentLocationPoint['lng']))
             self.recordInMemory()
@@ -57,7 +57,8 @@ class Character:
         self.targetLocationPoint = GPSLocationPointCreatetor.getLocationFromController()
 
     def recordInMemory(self):
-        self.routeMemory.append(self.currentLocationPoint)
+        self.routeMemory.append(
+            {"lat": self.currentLocationPoint["lat"], "lng": self.currentLocationPoint["lng"]})
 
     def clearMemory(self):
         self.routeMemory = []

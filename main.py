@@ -35,8 +35,8 @@ def simpleUI():
 
 
 def easyTest():
-    currentLocation = {"lat": Decimal(32.711517), "lng": Decimal(-117.164686)}
-    targetLocation = {"lat": Decimal(32.719835), "lng": Decimal(-117.161195)}
+    currentLocation = {"lat": float(32.711517), "lng": float(-117.164686)}
+    targetLocation = {"lat": float(32.719835), "lng": float(-117.161195)}
     trainer = Character(currentLocation)
     trainer.targetLocationPoint = targetLocation
     trainer.walkPattern = WalkPattern(trainer, True)
