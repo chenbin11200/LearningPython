@@ -12,7 +12,7 @@ class Character:
         self.currentLocationPoint = currentLocationPoint
         self.routeMemory = []
         self.targetLocationPoint = None
-        self.startLocationPoint = currentLocationPoint
+        self.startLocationPoint = None
 
     def moveTo(self, targetLocationPoint):
         """
@@ -43,9 +43,11 @@ class Character:
             self.currentLocationPoint['lng'] += realChangeInLng
             #  Helper.updateGPSLocation(self.currentLocationPoint['lat'], self.currentLocationPoint['lng'])
             GPSLocationPointCreatetor.createGPSFile4IOS(float(self.currentLocationPoint['lat']), float(self.currentLocationPoint['lng']))
+            Helper.clickAction()
             self.recordInMemory()
         #  Helper.update_gps_location(targetLocationPoint['lat'], targetLocationPoint['lng'])
         GPSLocationPointCreatetor.createGPSFile4IOS(targetLocationPoint['lat'], targetLocationPoint['lng'])
+        Helper.clickAction()
         self.recordInMemory()
         print("Reach and point, wait to start new trip.")
         return
