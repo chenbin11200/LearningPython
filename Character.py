@@ -31,15 +31,10 @@ class Character:
 
         pathLineRad = GPSLocationPointCreatetor.getPathLineRad(self.currentLocationPoint, targetLocationPoint)
 
-        distanceAtLat = GPSLocationPointCreatetor.getDistanceInLat(self.currentLocationPoint['lat'],
-                                                                   Character.WalkSpeed)
         differenceInX = GPSLocationPointCreatetor.getMaxDeviation(self.currentLocationPoint['lat'],
                                                                   Character.WalkSpeed)['lng']
-        differenceInY = differenceInX * math.tan(pathLineRad)
 
         differenceInLine = differenceInX / math.cos(pathLineRad)
-
-        #  (differenceInX/differenceInLine)*differenceInX
 
         directionInX = 1 if targetPoint['lng']-startPoint['lng'] >= 0 else -1
         realChangeInX = (differenceInX/differenceInLine)*differenceInX  # * directionInX

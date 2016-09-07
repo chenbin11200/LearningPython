@@ -71,7 +71,7 @@ def rad(angle):
 
 # http://www.cnblogs.com/zrhai/p/3817492.html
 # http://www.ucbbs.org/cgi-bin/bbs/ccb/topic_view.cgi?forum=1&article_id=0101080324231941&class=1
-# Calculate max latitude & longitude differance according to a certain latitude and distance(in meter)
+# Calculate max latitude & longitude difference according to a certain latitude and distance(in meter)
 # The result is a square area
 def getMaxDeviation(lat, distance):
     EARTH_RADIUS = 6377.830  # in km
@@ -87,7 +87,6 @@ def getDistanceInLat(lat, distance):
     lat = getMaxDeviation(lat, distance)["lat"]
     lng = getMaxDeviation(lat, distance)["lng"]
     return math.sqrt(lat*lat + lng*lng)
-
 
 
 def test():

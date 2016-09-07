@@ -29,7 +29,7 @@ def getMaxDeviation(lat, distance):
     lngDeviation = distance / 1000.0 * lngRatio  # in meter
     return {"lat": latDeviation, "lng": lngDeviation}
 
-#  TODO rename differenceInGeoForDistance
+#  TODO rename differenceInGeoForDistance, not in use
 def getDistanceInLat(lat, distance):
     lat = getMaxDeviation(lat, distance)["lat"]
     lng = getMaxDeviation(lat, distance)["lng"]
