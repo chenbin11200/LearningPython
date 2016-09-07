@@ -39,7 +39,7 @@ def easyTest():
     targetLocation = {"lat": float(32.719835), "lng": float(-117.161195)}
     trainer = Character(currentLocation)
     trainer.targetLocationPoint = targetLocation
-    trainer.walkPattern = WalkPattern(trainer, True)
+    trainer.walkPattern = WalkPattern(trainer, False)
     trainer.walkPattern.start()
 
 

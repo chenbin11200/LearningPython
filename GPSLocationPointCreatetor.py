@@ -26,10 +26,10 @@ def getMaxDeviation(lat, distance):
     latRatio = 180 / (math.pi * EARTH_RADIUS)
     lngRatio = latRatio / math.cos(radLat)
     latDeviation = distance / 1000.0 * latRatio  # in meter
-    lngDeviation = distance / 1000.0 * lngRatio # in meter
+    lngDeviation = distance / 1000.0 * lngRatio  # in meter
     return {"lat": latDeviation, "lng": lngDeviation}
 
-
+#  TODO rename differenceInGeoForDistance
 def getDistanceInLat(lat, distance):
     lat = getMaxDeviation(lat, distance)["lat"]
     lng = getMaxDeviation(lat, distance)["lng"]
@@ -37,10 +37,10 @@ def getDistanceInLat(lat, distance):
 
 
 def getPathLineRad(startLocationPoint, destinationLocationPoint):
-    x1 = Decimal(startLocationPoint['lat'])
-    y1 = Decimal(startLocationPoint['lng'])
-    x2 = Decimal(destinationLocationPoint['lat'])
-    y2 = Decimal(destinationLocationPoint['lng'])
+    x1 = Decimal(startLocationPoint['lng'])
+    y1 = Decimal(startLocationPoint['lat'])
+    x2 = Decimal(destinationLocationPoint['lng'])
+    y2 = Decimal(destinationLocationPoint['lat'])
     return math.atan2(y2-y1, x2-x1)
 
 
@@ -51,7 +51,7 @@ def getLocationFromController():
         if geo != None:
             lastLat = geo["lat"]
             lastLng = geo["lng"]
-        return {"lat":float(lastLat), "lng":float(lastLng)}
+        return {"lat": float(lastLat), "lng": float(lastLng)}
 
     except urllib2.URLError as e:
         print e.reason
