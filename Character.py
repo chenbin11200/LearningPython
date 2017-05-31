@@ -5,7 +5,7 @@ import GPSLocationPointCreatetor
 
 
 class Character:
-    WalkSpeed = 5  # m/s
+    WalkSpeed = 2  # m/s
     SearchRange = 20  # meter
 
     def __init__(self, currentLocationPoint):
@@ -46,9 +46,9 @@ class Character:
             #  Helper.updateGPSLocation(self.currentLocationPoint['lat'], self.currentLocationPoint['lng'])
             GPSLocationPointCreatetor.createGPSFile4IOS(float(self.currentLocationPoint['lat']),
                                                         float(self.currentLocationPoint['lng']))
-            # Helper.clickAction()
+            Helper.clickAction()
             self.recordInMemory()
-        Helper.update_gps_location(targetLocationPoint['lat'], targetLocationPoint['lng'])
+        #Helper.update_gps_location(targetLocationPoint['lat'], targetLocationPoint['lng'])
         GPSLocationPointCreatetor.createGPSFile4IOS(targetLocationPoint['lat'], targetLocationPoint['lng'])
         Helper.clickAction()
         self.recordInMemory()

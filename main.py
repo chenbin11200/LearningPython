@@ -43,4 +43,4 @@ def easyTest():
     trainer.walkPattern.start()
 
 
-easyTest()
+simpleUI()
